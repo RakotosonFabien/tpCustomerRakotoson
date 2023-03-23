@@ -12,7 +12,10 @@ import jakarta.ejb.EJB;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import itu.mbds.fabien.tpcustomerrakotoson.ejb.CustomerManager;
+import itu.mbds.fabien.tpcustomerrakotoson.ejb.DiscountManager;
 import itu.mbds.fabien.tpcustomerrakotoson.entities.Customer;
+import itu.mbds.fabien.tpcustomerrakotoson.entities.Discount;
+import java.util.List;
 
 /**
  * Backing bean pour la page customerDetails.xhtml.
@@ -22,7 +25,8 @@ import itu.mbds.fabien.tpcustomerrakotoson.entities.Customer;
 public class CustomerDetailsBean implements Serializable {
   private int idCustomer;
   private Customer customer;
-
+  @EJB
+  private DiscountManager discountManager;
   @EJB
   private CustomerManager customerManager;
 
@@ -56,5 +60,11 @@ public class CustomerDetailsBean implements Serializable {
 
   public void loadCustomer() {
     this.customer = customerManager.findById(idCustomer);
+  }
+    /**
+   * Retourne la liste de tous les Discount.
+   */
+  public List<Discount> getDiscounts() {
+    return discountManager.getAllDiscounts();
   }
 }
